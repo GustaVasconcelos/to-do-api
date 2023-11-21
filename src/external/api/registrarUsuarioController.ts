@@ -1,7 +1,5 @@
 import { Express, Request, Response } from 'express';
-import RegistrarUsuario from '@/core/usuarios/service/registrarUsuario';
-import ValidarUsuario from '@/core/usuarios/service/validarEntrada';
-
+import RegistrarUsuario from '../../core/usuarios/service/registrarUsuario'
 class RegistrarUsuarioController {
     constructor(
         private servidor: Express,

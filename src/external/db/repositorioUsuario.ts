@@ -1,4 +1,4 @@
-import Usuario from "@/core/usuarios/model/usuario";
+import Usuario from "../../core/usuarios/model/usuario";
 import Db from "./db";
 
 class RepositorioUsuario {

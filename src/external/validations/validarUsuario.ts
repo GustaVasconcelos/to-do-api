@@ -1,4 +1,4 @@
-import ValidarEntrada from "@/core/usuarios/service/validarEntrada";
+import ValidarEntrada from "../../core/usuarios/service/validarEntrada";
 import validator from "validator";
 
 class ValidarUsuario implements ValidarEntrada {

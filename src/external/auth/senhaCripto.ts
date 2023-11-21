@@ -1,4 +1,4 @@
-import ProvedorCriptografia from '@/core/usuarios/service/provedorCriptografia';
+import ProvedorCriptografia from '../../core/usuarios/service/provedorCriptografia';
 import bcrypt from 'bcrypt';
 
 class SenhaCripto implements ProvedorCriptografia {
