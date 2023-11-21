@@ -3,12 +3,12 @@ dotenv.config();
 
 import cors from 'cors';
 import express from 'express';
-import RepositorioUsuario from './external/db/repositorioUsuario';
-import Db from './external/db/db';
-import SenhaCripto from './external/auth/senhaCripto';
-import RegistrarUsuario from './core/usuarios/service/registrarUsuario';
-import RegistrarUsuarioController from './external/api/registrarUsuarioController';
-import ValidarUsuario from './external/validations/validarUsuario';
+import RepositorioUsuario from './src/external/db/repositorioUsuario';
+import Db from './src/external/db/db';
+import SenhaCripto from './src/external/auth/senhaCripto';
+import RegistrarUsuario from './src/core/usuarios/service/registrarUsuario';
+import RegistrarUsuarioController from './src/external/api/registrarUsuarioController';
+import ValidarUsuario from './src/external/validations/validarUsuario';
 
 const app = express();
 const porta = process.env.API_PORT ?? 4000;
