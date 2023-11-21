@@ -1,8 +1,8 @@
-import CasoDeUso from "@/core/shared/casoDeUso";
+import CasoDeUso from "../../shared/casoDeUso";
 import Usuario from "../model/usuario";
 import ProvedorCriptografia from "./provedorCriptografia";
 import RepositorioUsuario from "./repositorioUsuario";
-import erros from "@/core/shared/erros";
+import erros from '../../shared/erros';
 
 
 export type loginUsuarioEntrada = {

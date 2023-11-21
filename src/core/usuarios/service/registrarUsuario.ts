@@ -1,10 +1,10 @@
-import CasoDeUso from "@/core/shared/casoDeUso";
+import CasoDeUso from "../../shared/casoDeUso";
 import Usuario from "../model/usuario";
 import ProvedorCriptografia from "./provedorCriptografia";
 import ValidarEntrada from "./validarEntrada";
 import RepositorioUsuario from "./repositorioUsuario";
-import erros from "@/core/shared/erros";
-import Id from "@/core/shared/id";
+import erros from '../../shared/erros';
+import Id from "../../shared/id";
 
 export type registrarUsuarioEntrada = {
     nome: string
