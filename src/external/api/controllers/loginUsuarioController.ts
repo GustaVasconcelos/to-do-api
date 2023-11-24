@@ -1,4 +1,4 @@
-import LoginUsuario from "core/usuarios/service/loginUsuario";
+import LoginUsuario from "../../../core/usuarios/service/loginUsuario";
 import { Express, Request, Response } from "express";
 import ProvedorJwt from "../utils/provedorJwt";
 

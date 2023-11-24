@@ -8,9 +8,9 @@ import Db from './external/db/db';
 import SenhaCripto from './external/auth/senhaCripto';
 import RegistrarUsuario from './core/usuarios/service/registrarUsuario';
 import RegistrarUsuarioController from './external/api/controllers/registrarUsuarioController';
-import LoginUsuarioController from 'external/api/controllers/loginUsuarioController';
-import LoginUsuario from 'core/usuarios/service/loginUsuario';
-import ValidarUsuario from 'external/validations/validarUsuario';
+import LoginUsuarioController from './external/api/controllers/loginUsuarioController';
+import LoginUsuario from './core/usuarios/service/loginUsuario';
+import ValidarUsuario from './external/validations/validarUsuario';
 
 
 const app = express();

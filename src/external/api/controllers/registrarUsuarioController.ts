@@ -1,6 +1,6 @@
 import { Express, Request, Response } from 'express';
 import RegistrarUsuario from '../../../core/usuarios/service/registrarUsuario'
-import sucessos from 'core/shared/sucessos';
+import sucessos from '../../../core/shared/sucessos';
 class RegistrarUsuarioController {
     constructor(
         servidor: Express,
