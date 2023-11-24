@@ -9,10 +9,24 @@ class ValidarUsuario {
         return validator_1.default.isEmail(email);
     }
     verificarCamposVazios(obj) {
-        return Object.values(obj).some(value => !value);
+        return Object.values(obj).some(value => !value || value.trim() === '');
     }
     compararSenhas(senha, confirmacaoSenha) {
         return senha === confirmacaoSenha;
     }
 }
 exports.default = ValidarUsuario;
+// class ProvedorJwt {
+//     constructor(
+//         private segredo: string,
+//     ) {}
+//     gerar(dados: string | object): string {
+//         return jwt.sign(dados, this.segredo, {
+//             expiresIn: "1d",
+//         });
+//     }
+//     obter(token: string): string | object {
+//         return jwt.verify(token, this.segredo);
+//     }
+// }
+// export default ProvedorJwt;

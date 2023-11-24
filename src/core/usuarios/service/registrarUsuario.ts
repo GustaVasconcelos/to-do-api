@@ -17,20 +17,19 @@ class RegistrarUsuario implements CasoDeUso<registrarUsuarioEntrada, void> {
     constructor (
         private provedorCripto: ProvedorCriptografia,
         private repositorio: RepositorioUsuario,
-        private validarEntrada: ValidarEntrada,
+        private validarEntrada: ValidarEntrada
     ) {}
 
     async executar(usuario: registrarUsuarioEntrada): Promise<void> {
-        if (this.validarEntrada.verificarCamposVazios(usuario)) throw new Error(erros.CAMPOS_OBRIGATORIOS);
-        
-        if (!this.validarEntrada.validarEmail(usuario.email)) throw new Error(erros.EMAIL_INVALIDO);
-        
-        if (!this.validarEntrada.compararSenhas(usuario.senha, usuario.senhaNovamente)) throw new Error(erros.SENHAS_DIFERENTES);
+        this.camposVazios(usuario);
+
+        this.validarEmail(usuario.email);
+
+        this.compararSenha(usuario.senha, usuario.senhaNovamente);
+
+        await this.verificarUsuario(usuario.email);
         
         const senhaCriptografada = this.provedorCripto.criptografar(usuario.senha);
-        const usuarioExistente = await this.repositorio.buscarPorEmail(usuario.email);
-
-        if (usuarioExistente) throw new Error(erros.USUARIO_EXISTENTE);
 
         const novoUsuario: Usuario = {
             id: Id.gerarHash(),
@@ -40,6 +39,38 @@ class RegistrarUsuario implements CasoDeUso<registrarUsuarioEntrada, void> {
         }
 
         this.repositorio.inserir(novoUsuario);
+    }
+
+    private camposVazios (
+        entrada: registrarUsuarioEntrada
+    ): void {
+        const camposVazios = this.validarEntrada.verificarCamposVazios(entrada);
+
+        if (camposVazios) throw new Error(erros.CAMPOS_OBRIGATORIOS);
+    }
+
+    private compararSenha (
+        senha: string,
+        senhaConfirmacao: string
+    ): void {
+        const senhasSaoIguais = this.validarEntrada.compararSenhas(senha, senhaConfirmacao);
+        
+        if (!senhasSaoIguais) throw new Error(erros.SENHAS_DIFERENTES)
+    }
+    private validarEmail(
+        email: string
+    ): void {
+        const emailValido = this.validarEntrada.validarEmail(email);
+
+        if (!emailValido) throw new Error(erros.EMAIL_INVALIDO);
+    }
+
+    private async verificarUsuario(
+        email: string
+    ): Promise<void> {
+        const usuario = await this.repositorio.buscarPorEmail(email);
+
+        if (usuario) throw new Error(erros.USUARIO_EXISTENTE);
     }
 }
 

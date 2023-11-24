@@ -31,5 +31,13 @@ class RepositorioUsuario {
             return usuario.rows[0];
         });
     }
+    buscarPorId(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const usuario = yield this.db.query(`
+                SELECT * FROM usuarios WHEREid = $1
+            `, [id]);
+            return usuario.rows[0];
+        });
+    }
 }
 exports.default = RepositorioUsuario;

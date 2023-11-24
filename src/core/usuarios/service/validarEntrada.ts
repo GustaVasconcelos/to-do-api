@@ -3,7 +3,7 @@ interface ValidarEntrada {
 
     verificarCamposVazios(obj: Record<string, string>): boolean;
 
-    compararSenhas(senha: string, confirmacaoSenha: string): boolean;
+    compararSenhas(senha: string, senhaBancoDeDados: string): boolean;
 }
 
 export default ValidarEntrada;

@@ -13,19 +13,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const erros_1 = __importDefault(require("../../shared/erros"));
-class LoginUsuario {
-    constructor(provedorDeCriptografia, repositorio, validarEntrada) {
-        this.provedorDeCriptografia = provedorDeCriptografia;
+const id_1 = __importDefault(require("../../shared/id"));
+class RegistrarTarefa {
+    constructor(repositorio, repositorioUsuario, validarEntrada) {
         this.repositorio = repositorio;
+        this.repositorioUsuario = repositorioUsuario;
         this.validarEntrada = validarEntrada;
     }
-    executar(usuario) {
+    executar(tarefa) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.camposVazios(usuario);
-            this.validarEmail(usuario.email);
-            const usuarioExistente = yield this.verificarUsuario(usuario.email);
-            this.compararSenhas(usuario.senha, usuarioExistente.senha);
-            return Object.assign(Object.assign({}, usuarioExistente), { senha: undefined });
+            this.camposVazios(tarefa);
+            this.verificarIdUsuario(tarefa.idUsuario);
+            const novaTarefa = {
+                id: id_1.default.gerarHash(),
+                idUsuario: tarefa.idUsuario,
+                nome: tarefa.nome,
+                descricao: tarefa.descricao,
+                prioridade: tarefa.prioridade,
+                dataCriacao: new Date(),
+                tempoEstimado: tarefa.tempoEstimado,
+                statusConclusao: tarefa.statusConclusao
+            };
+            yield this.repositorio.inserir(novaTarefa);
         });
     }
     camposVazios(entrada) {
@@ -33,21 +42,13 @@ class LoginUsuario {
         if (camposVazios)
             throw new Error(erros_1.default.CAMPOS_OBRIGATORIOS);
     }
-    compararSenhas(senha, senhaBancoDeDados) {
-        const compararSenhas = this.provedorDeCriptografia.comparar(senha, senhaBancoDeDados);
-        if (!compararSenhas)
-            throw new Error(erros_1.default.SENHA_INCORRETA);
-    }
-    validarEmail(email) {
-        const emailValido = this.validarEntrada.validarEmail(email);
-        if (!emailValido)
-            throw new Error(erros_1.default.EMAIL_INVALIDO);
-    }
-    verificarUsuario(email) {
-        const usuario = this.repositorio.buscarPorEmail(email);
-        if (!usuario)
-            throw new Error(erros_1.default.USUARIO_INEXISTENTE);
-        return usuario;
+    verificarIdUsuario(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const usuario = yield this.repositorioUsuario.buscarPorId(id);
+            if (!usuario)
+                throw new Error(erros_1.default.USUARIO_INEXISTENTE);
+            return usuario;
+        });
     }
 }
-exports.default = LoginUsuario;
+exports.default = RegistrarTarefa;

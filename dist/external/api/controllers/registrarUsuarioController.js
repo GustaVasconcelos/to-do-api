@@ -8,27 +8,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const sucessos_1 = __importDefault(require("core/shared/sucessos"));
 class RegistrarUsuarioController {
-    constructor(servidor, casoDeUso) {
-        this.servidor = servidor;
-        this.casoDeUso = casoDeUso;
-        this.registrarRotas();
-    }
-    registrarRotas() {
-        this.servidor.post('/api/usuarios/registrar', this.registrarUsuario.bind(this));
-    }
-    registrarUsuario(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
+    constructor(servidor, casoDeUso, ...middlewares) {
+        servidor.post('/api/usuarios/registrar', ...middlewares, (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const usuario = req.body;
-                yield this.casoDeUso.executar(usuario);
-                res.status(201).send();
+                yield casoDeUso.executar(usuario);
+                res.status(201).send(sucessos_1.default.USUARIO_CADASTRADO);
             }
             catch (erro) {
                 res.status(400).send(erro.message);
             }
-        });
+        }));
     }
 }
 exports.default = RegistrarUsuarioController;

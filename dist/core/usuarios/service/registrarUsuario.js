@@ -22,16 +22,11 @@ class RegistrarUsuario {
     }
     executar(usuario) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (this.validarEntrada.verificarCamposVazios(usuario))
-                throw new Error(erros_1.default.CAMPOS_OBRIGATORIOS);
-            if (!this.validarEntrada.validarEmail(usuario.email))
-                throw new Error(erros_1.default.EMAIL_INVALIDO);
-            if (!this.validarEntrada.compararSenhas(usuario.senha, usuario.senhaNovamente))
-                throw new Error(erros_1.default.SENHAS_DIFERENTES);
+            this.camposVazios(usuario);
+            this.validarEmail(usuario.email);
+            this.compararSenha(usuario.senha, usuario.senhaNovamente);
+            yield this.verificarUsuario(usuario.email);
             const senhaCriptografada = this.provedorCripto.criptografar(usuario.senha);
-            const usuarioExistente = yield this.repositorio.buscarPorEmail(usuario.email);
-            if (usuarioExistente)
-                throw new Error(erros_1.default.USUARIO_EXISTENTE);
             const novoUsuario = {
                 id: id_1.default.gerarHash(),
                 nome: usuario.nome,
@@ -39,6 +34,28 @@ class RegistrarUsuario {
                 senha: senhaCriptografada
             };
             this.repositorio.inserir(novoUsuario);
+        });
+    }
+    camposVazios(entrada) {
+        const camposVazios = this.validarEntrada.verificarCamposVazios(entrada);
+        if (camposVazios)
+            throw new Error(erros_1.default.CAMPOS_OBRIGATORIOS);
+    }
+    compararSenha(senha, senhaConfirmacao) {
+        const senhasSaoIguais = this.validarEntrada.compararSenhas(senha, senhaConfirmacao);
+        if (!senhasSaoIguais)
+            throw new Error(erros_1.default.SENHAS_DIFERENTES);
+    }
+    validarEmail(email) {
+        const emailValido = this.validarEntrada.validarEmail(email);
+        if (!emailValido)
+            throw new Error(erros_1.default.EMAIL_INVALIDO);
+    }
+    verificarUsuario(email) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const usuario = yield this.repositorio.buscarPorEmail(email);
+            if (usuario)
+                throw new Error(erros_1.default.USUARIO_EXISTENTE);
         });
     }
 }

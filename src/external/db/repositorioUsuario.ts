@@ -17,7 +17,7 @@ class RepositorioUsuario {
         );
     };
 
-    async buscarPorEmail(email: string): Promise<Usuario | null> {
+    async buscarPorEmail(email: string): Promise<Usuario> {
         const usuario = await this.db.query(
             `
                 SELECT * FROM usuarios WHERE email = $1
@@ -25,7 +25,18 @@ class RepositorioUsuario {
             [email]
         );
     
-        return usuario.rows[0] as Usuario | null;
+        return usuario.rows[0] as Usuario;
+    }
+
+    async buscarPorId(id: string): Promise<Usuario> {
+        const usuario = await this.db.query(
+            `
+                SELECT * FROM usuarios WHEREid = $1
+            `,
+            [id]
+        );
+    
+        return usuario.rows[0] as Usuario;
     }
 }
 

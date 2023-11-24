@@ -1,6 +1,6 @@
 const erros = {
-    USUARIO_EXISTENTE: 'Usuário já cadastrado!',
-    USUARIO_INEXISTENTE: 'Usuário não cadastrado!',
+    USUARIO_EXISTENTE: 'E-mail já cadastrado!',
+    USUARIO_INEXISTENTE: 'Usuário não encontrado!',
     SENHA_INCORRETA: 'Senha incorreta!',
     CAMPOS_OBRIGATORIOS: 'Há campos vázios',
     EMAIL_INVALIDO: 'E-mail inválido',
