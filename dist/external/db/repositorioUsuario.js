@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-class RepositorioUsuario {
+class RepositorioUsuarioPg {
     constructor(db) {
         this.db = db;
     }
@@ -40,4 +40,4 @@ class RepositorioUsuario {
         });
     }
 }
-exports.default = RepositorioUsuario;
+exports.default = RepositorioUsuarioPg;

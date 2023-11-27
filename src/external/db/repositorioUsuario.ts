@@ -1,7 +1,7 @@
 import Usuario from "../../core/usuarios/model/usuario";
 import Db from "./db";
 
-class RepositorioUsuario {
+class RepositorioUsuarioPg {
     constructor (
         private db: Db,
     ) {}
@@ -40,4 +40,4 @@ class RepositorioUsuario {
     }
 }
 
-export default RepositorioUsuario;
+export default RepositorioUsuarioPg;

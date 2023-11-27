@@ -16,6 +16,10 @@ const registrarUsuarioController_1 = __importDefault(require("./external/api/con
 const loginUsuarioController_1 = __importDefault(require("./external/api/controllers/loginUsuarioController"));
 const loginUsuario_1 = __importDefault(require("./core/usuarios/service/loginUsuario"));
 const validarUsuario_1 = __importDefault(require("./external/validations/validarUsuario"));
+const registrarTarefaController_1 = __importDefault(require("external/api/controllers/registrarTarefaController"));
+const repositorioTarefa_1 = __importDefault(require("./external/db/repositorioTarefa"));
+const registrarTarefa_1 = __importDefault(require("core/tarefas/service/registrarTarefa"));
+const usuarioMiddleware_1 = __importDefault(require("external/api/middlewares/usuarioMiddleware"));
 const app = (0, express_1.default)();
 const porta = (_a = process.env.API_PORT) !== null && _a !== void 0 ? _a : 4000;
 app.use((0, cors_1.default)());
@@ -29,7 +33,12 @@ const db = new db_1.default();
 const repositorioUsuario = new repositorioUsuario_1.default(db);
 const validarUsuario = new validarUsuario_1.default();
 const provedorCripto = new senhaCripto_1.default();
+const repositorioTarefa = new repositorioTarefa_1.default(db);
 const registrarUsuario = new registrarUsuario_1.default(provedorCripto, repositorioUsuario, validarUsuario);
 const loginUsuario = new loginUsuario_1.default(provedorCripto, repositorioUsuario, validarUsuario);
 new registrarUsuarioController_1.default(app, registrarUsuario);
 new loginUsuarioController_1.default(app, loginUsuario);
+// ------------------ Rotas protegidas
+const registrarTarefa = new registrarTarefa_1.default(repositorioTarefa, validarUsuario);
+const usuarioMid = (0, usuarioMiddleware_1.default)(repositorioUsuario);
+new registrarTarefaController_1.default(app, registrarTarefa, usuarioMid);

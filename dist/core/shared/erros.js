@@ -6,6 +6,7 @@ const erros = {
     SENHA_INCORRETA: 'Senha incorreta!',
     CAMPOS_OBRIGATORIOS: 'Há campos vázios',
     EMAIL_INVALIDO: 'E-mail inválido',
-    SENHAS_DIFERENTES: 'As senhas não coincidem'
+    SENHAS_DIFERENTES: 'As senhas não coincidem',
+    TOKEN_INVALIDO: 'Acesso negado'
 };
 exports.default = erros;
