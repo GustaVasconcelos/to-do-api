@@ -15,6 +15,8 @@ import RegistrarTarefaController from 'external/api/controllers/registrarTarefaC
 import RepositorioTarefaPg from './external/db/repositorioTarefa';
 import RegistrarTarefa from 'core/tarefas/service/registrarTarefa';
 import usuarioMiddleware from 'external/api/middlewares/usuarioMiddleware';
+import DeletarTarefa from 'core/tarefas/service/deletarTarefa';
+import DeletarTarefaController from 'external/api/controllers/deletarTarefaController';
 
 const app = express();
 const porta = process.env.API_PORT ?? 4000;
@@ -46,8 +48,6 @@ const loginUsuario = new LoginUsuario(
     validarUsuario,
 )
 
-
-
 new RegistrarUsuarioController(app, registrarUsuario);
 new LoginUsuarioController(app, loginUsuario);
 
@@ -58,6 +58,13 @@ const registrarTarefa = new RegistrarTarefa(
     validarUsuario
 );
 
+const deletarTarefa = new DeletarTarefa(
+    repositorioTarefa,
+    validarUsuario
+);
+
 const usuarioMid = usuarioMiddleware(repositorioUsuario);
 new RegistrarTarefaController(app, registrarTarefa, usuarioMid);
+new DeletarTarefaController(app, deletarTarefa, usuarioMid);
+
 

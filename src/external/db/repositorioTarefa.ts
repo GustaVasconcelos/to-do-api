@@ -51,8 +51,14 @@ class RepositorioTarefaPg {
         }
     }
     
-
-
+    async deletar (id: string) {
+        await this.db.query(
+            `
+                DELETE FROM tarefas WHERE id = $1;
+            `,
+            [ id ]
+        );
+    }
 }
 
 export default RepositorioTarefaPg;

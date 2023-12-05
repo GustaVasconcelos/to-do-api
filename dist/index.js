@@ -20,6 +20,8 @@ const registrarTarefaController_1 = __importDefault(require("external/api/contro
 const repositorioTarefa_1 = __importDefault(require("./external/db/repositorioTarefa"));
 const registrarTarefa_1 = __importDefault(require("core/tarefas/service/registrarTarefa"));
 const usuarioMiddleware_1 = __importDefault(require("external/api/middlewares/usuarioMiddleware"));
+const deletarTarefa_1 = __importDefault(require("core/tarefas/service/deletarTarefa"));
+const deletarTarefaController_1 = __importDefault(require("external/api/controllers/deletarTarefaController"));
 const app = (0, express_1.default)();
 const porta = (_a = process.env.API_PORT) !== null && _a !== void 0 ? _a : 4000;
 app.use((0, cors_1.default)());
@@ -40,5 +42,7 @@ new registrarUsuarioController_1.default(app, registrarUsuario);
 new loginUsuarioController_1.default(app, loginUsuario);
 // ------------------ Rotas protegidas
 const registrarTarefa = new registrarTarefa_1.default(repositorioTarefa, validarUsuario);
+const deletarTarefa = new deletarTarefa_1.default(repositorioTarefa, validarUsuario);
 const usuarioMid = (0, usuarioMiddleware_1.default)(repositorioUsuario);
 new registrarTarefaController_1.default(app, registrarTarefa, usuarioMid);
+new deletarTarefaController_1.default(app, deletarTarefa, usuarioMid);

@@ -46,5 +46,12 @@ class RepositorioTarefaPg {
             }
         });
     }
+    deletar(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.db.query(`
+                DELETE FROM tarefas WHERE id = $1;
+            `, [id]);
+        });
+    }
 }
 exports.default = RepositorioTarefaPg;
