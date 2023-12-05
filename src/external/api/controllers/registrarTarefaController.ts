@@ -8,7 +8,7 @@ class RegistrarTarefaController {
         casoDeUso: RegistrarTarefa,
         ...middlewares: any[]
     ) {
-        servidor.post('/api/tarefas/registrar', ...middlewares, async (req: Request, res: Response) => {
+        servidor.post('/api/tarefas', ...middlewares, async (req: Request, res: Response) => {
             try {
                 const tarefa = {
                     idUsuario: (req as any).usuario.id,

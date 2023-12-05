@@ -7,7 +7,7 @@ class RegistrarUsuarioController {
         casoDeUso: RegistrarUsuario,
         ...middlewares: any[]
     ) {
-        servidor.post('/api/usuarios/registrar', ...middlewares, async (req: Request, res: Response) => {
+        servidor.post('/api/usuarios', ...middlewares, async (req: Request, res: Response) => {
             try {
                 const usuario = req.body;
     

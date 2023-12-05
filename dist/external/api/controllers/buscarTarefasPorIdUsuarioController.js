@@ -8,18 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const sucessos_1 = __importDefault(require("../../../core/shared/sucessos"));
-class RegistrarUsuarioController {
+class BuscarTarefasPorIdUsuarioController {
     constructor(servidor, casoDeUso, ...middlewares) {
-        servidor.post('/api/usuarios', ...middlewares, (req, res) => __awaiter(this, void 0, void 0, function* () {
+        servidor.get('/api/tarefas/', ...middlewares, (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const usuario = req.body;
-                yield casoDeUso.executar(usuario);
-                res.status(201).send(sucessos_1.default.USUARIO_CADASTRADO);
+                const idUsuario = req.usuario.id;
+                const tarefas = yield casoDeUso.executar({
+                    idUsuario
+                });
+                res.status(200).send(tarefas);
             }
             catch (erro) {
                 res.status(400).send(erro.message);
@@ -27,4 +25,4 @@ class RegistrarUsuarioController {
         }));
     }
 }
-exports.default = RegistrarUsuarioController;
+exports.default = BuscarTarefasPorIdUsuarioController;

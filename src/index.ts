@@ -11,12 +11,16 @@ import RegistrarUsuarioController from './external/api/controllers/registrarUsua
 import LoginUsuarioController from './external/api/controllers/loginUsuarioController';
 import LoginUsuario from './core/usuarios/service/loginUsuario';
 import ValidarUsuario from './external/validations/validarUsuario';
-import RegistrarTarefaController from 'external/api/controllers/registrarTarefaController';
+import RegistrarTarefaController from './external/api/controllers/registrarTarefaController';
 import RepositorioTarefaPg from './external/db/repositorioTarefa';
-import RegistrarTarefa from 'core/tarefas/service/registrarTarefa';
-import usuarioMiddleware from 'external/api/middlewares/usuarioMiddleware';
-import DeletarTarefa from 'core/tarefas/service/deletarTarefa';
-import DeletarTarefaController from 'external/api/controllers/deletarTarefaController';
+import RegistrarTarefa from './core/tarefas/service/registrarTarefa';
+import usuarioMiddleware from './external/api/middlewares/usuarioMiddleware';
+import DeletarTarefa from './core/tarefas/service/deletarTarefa';
+import DeletarTarefaController from './external/api/controllers/deletarTarefaController';
+import BuscarTarefasUsuario from './core/tarefas/service/buscarTarefasUsuario';
+import BuscarTarefasPorIdUsuarioController from './external/api/controllers/buscarTarefasPorIdUsuarioController';
+import EditarTarefa from './core/tarefas/service/editarTarefa';
+import EditarTarefaPorIdController from './external/api/controllers/editarTarefasPorIdController';
 
 const app = express();
 const porta = process.env.API_PORT ?? 4000;
@@ -63,8 +67,18 @@ const deletarTarefa = new DeletarTarefa(
     validarUsuario
 );
 
+const buscarTarefasPorIdUsuario = new BuscarTarefasUsuario(
+    repositorioTarefa,
+    validarUsuario
+);
+
+const editarTarefaPorId = new EditarTarefa (
+    repositorioTarefa
+)
 const usuarioMid = usuarioMiddleware(repositorioUsuario);
 new RegistrarTarefaController(app, registrarTarefa, usuarioMid);
 new DeletarTarefaController(app, deletarTarefa, usuarioMid);
+new BuscarTarefasPorIdUsuarioController(app, buscarTarefasPorIdUsuario, usuarioMid);
+new EditarTarefaPorIdController(app, editarTarefaPorId, usuarioMid)
 
 

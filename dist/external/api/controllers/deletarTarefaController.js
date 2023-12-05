@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sucessos_1 = __importDefault(require("../../../core/shared/sucessos"));
 class DeletarTarefaController {
     constructor(servidor, casoDeUso, ...middlewares) {
-        servidor.delete('/api/tarefas/deletar/:id', ...middlewares, (req, res) => __awaiter(this, void 0, void 0, function* () {
+        servidor.delete('/api/tarefas/:id', ...middlewares, (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const id = req.params.id;
                 yield casoDeUso.executar({

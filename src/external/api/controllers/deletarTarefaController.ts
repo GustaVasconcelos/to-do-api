@@ -8,7 +8,7 @@ class DeletarTarefaController {
         casoDeUso: DeletarTarefa,
         ...middlewares: any[]
     ) {
-        servidor.delete('/api/tarefas/deletar/:id', ...middlewares, async (req: Request, res: Response) => {
+        servidor.delete('/api/tarefas/:id', ...middlewares, async (req: Request, res: Response) => {
             try {
                 const id = req.params.id;
                 

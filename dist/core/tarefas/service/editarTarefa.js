@@ -13,27 +13,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const erros_1 = __importDefault(require("../../../core/shared/erros"));
-class BuscarTarefasUsuario {
-    constructor(repositorio, validarEntrada) {
+class EditarTarefa {
+    constructor(repositorio) {
         this.repositorio = repositorio;
-        this.validarEntrada = validarEntrada;
     }
     executar(entrada) {
+        var _a, _b, _c, _d, _e;
         return __awaiter(this, void 0, void 0, function* () {
-            this.camposVazios(entrada);
-            const tarefas = yield this.repositorio.buscarTarefasPorIdUsuario(entrada.idUsuario);
-            this.verificarTarefas(tarefas);
-            return tarefas;
+            const tarefa = yield this.verificarTarefa(entrada.id);
+            if (tarefa) {
+                yield this.repositorio.editar(entrada.id, (_a = entrada.nome) !== null && _a !== void 0 ? _a : tarefa.nome, (_b = entrada.descricao) !== null && _b !== void 0 ? _b : tarefa.descricao, (_c = entrada.prioridade) !== null && _c !== void 0 ? _c : tarefa.prioridade, (_e = (_d = entrada.statusConclusao) !== null && _d !== void 0 ? _d : tarefa.statusConclusao) !== null && _e !== void 0 ? _e : false);
+            }
         });
     }
-    camposVazios(entrada) {
-        const camposVazios = this.validarEntrada.verificarCamposVazios(entrada);
-        if (camposVazios)
-            throw new Error(erros_1.default.CAMPOS_OBRIGATORIOS);
-    }
-    verificarTarefas(tarefas) {
-        if (!tarefas)
-            throw new Error(erros_1.default.TAREFAS_NAO_CADASTRADAS);
+    verificarTarefa(id) {
+        const tarefa = this.repositorio.buscarTarefaPorId(id);
+        if (!tarefa)
+            throw new Error(erros_1.default.TAREFA_NAO_ENCONTRADA);
+        return tarefa;
     }
 }
-exports.default = BuscarTarefasUsuario;
+exports.default = EditarTarefa;

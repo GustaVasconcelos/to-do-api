@@ -6,6 +6,10 @@ interface RepositorioTarefa {
     buscarTarefasPorIdUsuario(idUsuario: string): Promise<Tarefas[]>;
 
     deletar(id: string): Promise <void>;
+
+    buscarTarefaPorId(id: string): Promise<Tarefas | null>;
+
+    editar(id: string, nome: string, descricao: string, prioridade: string, statusConclusao: boolean): Promise<void>;
 }
 
 export default RepositorioTarefa;

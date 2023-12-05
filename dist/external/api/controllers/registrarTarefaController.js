@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sucessos_1 = __importDefault(require("../../../core/shared/sucessos"));
 class RegistrarTarefaController {
     constructor(servidor, casoDeUso, ...middlewares) {
-        servidor.post('/api/tarefas/registrar', ...middlewares, (req, res) => __awaiter(this, void 0, void 0, function* () {
+        servidor.post('/api/tarefas', ...middlewares, (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const tarefa = {
                     idUsuario: req.usuario.id,

@@ -13,13 +13,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sucessos_1 = __importDefault(require("../../../core/shared/sucessos"));
-class RegistrarUsuarioController {
+class EditarTarefaPorIdController {
     constructor(servidor, casoDeUso, ...middlewares) {
-        servidor.post('/api/usuarios', ...middlewares, (req, res) => __awaiter(this, void 0, void 0, function* () {
+        servidor.post('/api/tarefas/:id', ...middlewares, (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const usuario = req.body;
-                yield casoDeUso.executar(usuario);
-                res.status(201).send(sucessos_1.default.USUARIO_CADASTRADO);
+                const id = req.params.id;
+                const { nome, descricao, prioridade, statusConclusao } = req.body;
+                yield casoDeUso.executar({
+                    id,
+                    nome,
+                    descricao,
+                    prioridade,
+                    statusConclusao
+                });
+                res.status(200).send(sucessos_1.default.TAREFA_ATUALIZADA);
             }
             catch (erro) {
                 res.status(400).send(erro.message);
@@ -27,4 +34,4 @@ class RegistrarUsuarioController {
         }));
     }
 }
-exports.default = RegistrarUsuarioController;
+exports.default = EditarTarefaPorIdController;
